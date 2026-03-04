@@ -1,43 +1,14 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMA Studio - Create with Your OS, Not Just a Website</title>
-    <meta name="description" content="IMA Studio brings AI creation into your workflow — not just a tab, but a living part of how you make things.">
+    <title>IMA Studio - Create with Your OS</title>
     
-    <!-- Fonts -->
+    <!-- Figtree Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'ima-dark': '#0A0A0F',
-                        'ima-darker': '#050508',
-                        'ima-card': '#111118',
-                        'ima-border': '#1E1E2A',
-                        'ima-cyan': '#00D4FF',
-                        'ima-purple': '#7B61FF',
-                        'ima-orange': '#FF6B35',
-                        'ima-lobster': '#FF4757',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -46,985 +17,442 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --bg-primary: #050505;
+            --bg-secondary: #0A0A0A;
+            --accent-purple: #7B61FF;
+            --accent-purple-light: #9B85FF;
+            --accent-pink: #E066FF;
+            --text-primary: #FFFFFF;
+            --text-secondary: #A0A0A0;
+            --text-muted: #666666;
+            --border: #1A1A1A;
+        }
+        
         body {
-            font-family: 'Inter', 'Noto Sans SC', sans-serif;
-            background: #050508;
-            color: #fff;
+            font-family: 'Figtree', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             overflow-x: hidden;
+            line-height: 1.5;
         }
         
-        /* Aurora Background */
-        .aurora-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: 
-                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.12) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(123, 97, 255, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(255, 71, 87, 0.05) 0%, transparent 60%),
-                #050508;
-        }
-        
-        .aurora-bg::before {
-            content: '';
+        /* Aurora Background Animation */
+        .hero-bg {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: 
-                radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
-                radial-gradient(circle at 70% 70%, rgba(123, 97, 255, 0.04) 0%, transparent 40%);
-            animation: aurora 25s ease-in-out infinite;
-        }
-        
-        @keyframes aurora {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(2%, 2%) rotate(120deg); }
-            66% { transform: translate(-1%, 1%) rotate(240deg); }
-        }
-        
-        /* Grid Pattern */
-        .grid-pattern {
-            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 80px 80px;
-            mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .aurora {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120%;
+            height: 120%;
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% 30%, rgba(123, 97, 255, 0.4) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 70% 60%, rgba(224, 102, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 30% at 30% 70%, rgba(123, 97, 255, 0.15) 0%, transparent 40%);
+            animation: aurora-move 20s ease-in-out infinite;
+            filter: blur(60px);
+        }
+        
+        @keyframes aurora-move {
+            0%, 100% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+            }
+            33% {
+                transform: translate(-48%, -52%) rotate(5deg) scale(1.05);
+            }
+            66% {
+                transform: translate(-52%, -48%) rotate(-5deg) scale(0.95);
+            }
+        }
+        
+        /* Noise Texture Overlay */
+        .noise {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
         
         /* Navigation */
-        .nav-blur {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: rgba(5, 5, 8, 0.8);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        /* Gradient Text */
-        .gradient-text {
-            background: linear-gradient(135deg, #00D4FF 0%, #7B61FF 50%, #FF4757 100%);
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-cta {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .nav-cta a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background: var(--accent-purple);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-purple-light);
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            z-index: 2;
+        }
+        
+        /* Tag */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(123, 97, 255, 0.1);
+            border: 1px solid rgba(123, 97, 255, 0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-purple-light);
+            margin-bottom: 32px;
+        }
+        
+        .tag-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-pink);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Hero Title */
+        .hero-title {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+        
+        .hero-title .gradient {
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--accent-purple-light) 50%, var(--accent-pink) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        /* Lobster Highlight */
-        .lobster-text {
-            color: #FF4757;
-            font-weight: 600;
+        /* Hero Subtitle */
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.6;
         }
         
-        /* Special Button */
-        .btn-special {
-            background: linear-gradient(135deg, #FF4757 0%, #FF6B35 100%);
-            color: #fff;
-            font-weight: 600;
-            padding: 16px 36px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            border: none;
-            cursor: pointer;
+        /* Hero Buttons */
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         
-        .btn-special::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s ease;
-        }
-        
-        .btn-special:hover::before {
-            left: 100%;
-        }
-        
-        .btn-special:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(255, 71, 87, 0.4);
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 16px;
         }
         
         .btn-secondary {
             background: transparent;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.2);
-            font-weight: 500;
-            padding: 16px 36px;
+            color: var(--text-primary);
+            padding: 16px 32px;
             border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
             transition: all 0.3s ease;
             cursor: pointer;
         }
         
         .btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.4);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-muted);
         }
         
-        /* Feature Cards */
-        .feature-card {
-            background: rgba(17, 17, 24, 0.8);
-            border: 1px solid #1E1E2A;
-            border-radius: 20px;
-            padding: 40px 32px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+        /* Social Proof */
+        .social-proof {
+            margin-top: 80px;
+            text-align: center;
         }
         
-        .feature-card::before {
-            content: '';
+        .social-proof-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        
+        .avatars {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .avatar-group {
+            display: flex;
+        }
+        
+        .avatar-group img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-primary);
+            margin-left: -10px;
+        }
+        
+        .avatar-group img:first-child {
+            margin-left: 0;
+        }
+        
+        .avatar-count {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            border: 2px solid var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-left: -10px;
+        }
+        
+        .social-proof-stats {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .social-proof-stats strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.5), transparent);
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 12px;
+            animation: bounce 2s infinite;
         }
         
-        .feature-card:hover {
-            background: rgba(17, 17, 24, 0.95);
-            border-color: rgba(0, 212, 255, 0.3);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-        
-        /* Demo Canvas */
-        .demo-canvas {
-            background: rgba(17, 17, 24, 0.6);
-            border: 1px solid #1E1E2A;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        
-        /* Skill Cards Masonry */
-        .skill-card {
-            background: rgba(17, 17, 24, 0.6);
-            border: 1px solid #1E1E2A;
-            border-radius: 16px;
-            padding: 24px;
-            transition: all 0.3s ease;
-            break-inside: avoid;
-            margin-bottom: 16px;
-        }
-        
-        .skill-card:hover {
-            border-color: rgba(0, 212, 255, 0.4);
-            transform: translateY(-2px);
-        }
-        
-        /* Quote Cards */
-        .quote-card {
-            background: rgba(17, 17, 24, 0.8);
-            border-left: 3px solid #FF4757;
-            padding: 32px;
-            border-radius: 0 16px 16px 0;
-        }
-        
-        /* Tab Styles */
-        .demo-tab {
-            padding: 12px 24px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-        
-        .demo-tab.active {
-            background: rgba(255, 71, 87, 0.2);
-            color: #FF4757;
-        }
-        
-        .demo-tab:hover:not(.active) {
-            background: rgba(255,255,255,0.05);
-        }
-        
-        /* Scroll Reveal */
-        .reveal {
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.8s ease;
-        }
-        
-        .reveal.animate {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .reveal.animate.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Typing Animation */
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s infinite;
-            color: #FF4757;
-        }
-        
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-        
-        /* Canvas Animation */
-        .canvas-container {
-            position: relative;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(123, 97, 255, 0.05));
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        
-        .canvas-grid {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-animation {
+            nav {
+                padding: 16px 20px;
+            }
+            
+            .nav-links {
                 display: none;
+            }
+            
+            .hero {
+                padding: 100px 20px 60px;
+            }
+            
+            .hero-title {
+                font-size: 40px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Background -->
-    <div class="aurora-bg"></div>
-    <div class="grid-pattern"></div>
+    <!-- Aurora Background -->
+    <div class="hero-bg">
+        <div class="aurora"></div>
+        <div class="noise"></div>
+    </div>
     
     <!-- Navigation -->
-    <nav class="nav-blur fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <a href="#" class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-ima-cyan to-ima-purple flex items-center justify-center">
-                        <i data-lucide="zap" class="w-5 h-5 text-white"></i>
-                    </div>
-                    <span class="text-xl font-bold">IMA Studio</span>
-                </a>
-                
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#features" class="text-gray-400 hover:text-white transition-colors">Why IMA</a>
-                    <a href="#demo" class="text-gray-400 hover:text-white transition-colors">Demo</a>
-                    <a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a>
-                    <a href="#community" class="text-gray-400 hover:text-white transition-colors">Community</a>
-                </div>
-                
-                <div class="flex items-center gap-4">
-                    <a href="#" class="hidden sm:block text-gray-400 hover:text-white transition-colors">Sign In</a>
-                    <button class="btn-special text-sm px-6 py-3">Start Creating Free</button>
-                </div>
+    <nav>
+        <a href="#" class="logo">
+            <div class="logo-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
             </div>
+            IMA Studio
+        </a>
+        
+        <div class="nav-links">
+            <a href="#">Services</a>
+            <a href="#">Process</a>
+            <a href="#">Cases</a>
+            <a href="#">Pricing</a>
+        </div>
+        
+        <div class="nav-cta">
+            <a href="#">Sign In</a>
+            <a href="#" class="btn-primary">Start Creating</a>
         </div>
     </nav>
     
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center pt-24 pb-12 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 w-full">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <!-- Left Content -->
-                <div class="space-y-8">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                        <span class="w-2 h-2 rounded-full bg-ima-lobster animate-pulse"></span>
-                        <span class="text-sm text-gray-400">iMaclaw Beta Now Available</span>
-                    </div>
-                    
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                        Create with
-                        <span class="gradient-text block mt-2">Your OS.</span>
-                    </h1>
-                    
-                    <p class="text-xl text-gray-400 max-w-lg leading-relaxed">
-                        IMA Studio brings AI creation into your workflow — 
-                        <span class="lobster-text">not just a tab</span>, 
-                        but a living part of how you make things.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-4">
-                        <button class="btn-special flex items-center gap-2">
-                            <span>Start Creating Free</span>
-                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                        </button>
-                        <button class="btn-secondary flex items-center gap-2">
-                            <span>Explore Skills →</span>
-                        </button>
-                    </div>
-                    
-                    <div class="flex items-center gap-6 pt-4">
-                        <div class="flex -space-x-3">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=1" class="w-10 h-10 rounded-full border-2 border-gray-900" alt="">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=2" class="w-10 h-10 rounded-full border-2 border-gray-900" alt="">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=3" class="w-10 h-10 rounded-full border-2 border-gray-900" alt="">
-                            <div class="w-10 h-10 rounded-full border-2 border-gray-900 bg-gray-800 flex items-center justify-center text-xs">+2k</div>
-                        </div>
-                        <p class="text-sm text-gray-500"><span class="text-white font-semibold">2,000+</span> creators joined</p>
-                    </div>
+    <section class="hero">
+        <div class="tag">
+            <span class="tag-dot"></span>
+            iMaclaw Beta Now Available
+        </div>
+        
+        <h1 class="hero-title">
+            Create with
+            <span class="gradient">Your OS.</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+            IMA Studio brings AI creation into your workflow — not just a tab, but a living part of how you make things.
+        </p>
+        
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary btn-large">
+                Start Creating Free
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"></path>
+                </svg>
+            </a>
+            
+            <a href="#" class="btn-secondary">
+                Explore Skills
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"></path>
+                </svg>
+            </a>
+        </div>
+        
+        <div class="social-proof">
+            <p class="social-proof-text">Over 2,000+ creators trust us</p>
+            
+            <div class="avatars">
+                <div class="avatar-group">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=1&backgroundColor=b6e3f4" alt="">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=2&backgroundColor=c0aede" alt="">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=3&backgroundColor=ffd5dc" alt="">
+                    <div class="avatar-count">+2k</div>
                 </div>
-                
-                <!-- Right - Creative Canvas Animation -->
-                <div class="hero-animation relative">
-                    <div class="demo-canvas p-6">
-                        <!-- Chat Interface -->
-                        <div class="bg-ima-card rounded-xl p-4 mb-4 border border-ima-border">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-ima-cyan to-ima-purple"></div>
-                                <span class="text-sm text-gray-400">You</span>
-                            </div>
-                            <div class="bg-white/5 rounded-lg p-3">
-                                <p class="text-sm typing-cursor" id="hero-typing">Create a 15s product ad for my wireless earbuds...</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Canvas Workspace -->
-                        <div class="canvas-container h-64">
-                            <div class="canvas-grid"></div>
-                            <div class="relative z-10 p-4 h-full flex flex-col">
-                                <div class="flex items-center justify-between mb-4">
-                                    <span class="text-xs text-gray-500">Canvas Workspace</span>
-                                    <div class="flex gap-2">
-                                        <span class="px-2 py-1 bg-ima-lobster/20 text-ima-lobster text-xs rounded">Generating...</span>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex-1 flex items-center justify-center gap-4">
-                                    <div class="text-center">
-                                        <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center mb-2 animate-pulse">
-                                            <i data-lucide="image" class="w-6 h-6 text-gray-500"></i>
-                                        </div>
-                                        <span class="text-xs text-gray-500">Storyboard</span>
-                                    </div>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
-                                    <div class="text-center">
-                                        <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-ima-cyan/20 to-ima-purple/20 flex items-center justify-center mb-2 border border-ima-cyan/30">
-                                            <i data-lucide="video" class="w-6 h-6 text-ima-cyan"></i>
-                                        </div>
-                                        <span class="text-xs text-gray-500">Video</span>
-                                    </div>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
-                                    <div class="text-center">
-                                        <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-ima-lobster/20 to-ima-orange/20 flex items-center justify-center mb-2 border border-ima-lobster/30">
-                                            <i data-lucide="check" class="w-6 h-6 text-ima-lobster"></i>
-                                        </div>
-                                        <span class="text-xs text-gray-500">Done</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <span class="social-proof-stats"><strong>2,000+</strong> creators joined</span>
             </div>
         </div>
     </section>
-    
-    <!-- Why IMA Section -->
-    <section id="features" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    Why <span class="gradient-text">IMA</span>?
-                </h2>
-                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                    From tools embedded in your OS to workflows that think with you.
-                </p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ima-cyan/20 to-ima-cyan/5 flex items-center justify-center mb-6">
-                        <i data-lucide="monitor" class="w-7 h-7 text-ima-cyan"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Embedded in Your OS</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        不是网站，是你的创作底座。通过 <span class="lobster-text">iMaclaw</span>，将 IMA Studio 的能力直接嵌入你的操作系统。在任何 App 里唤醒，<span class="lobster-text">不再切换标签页</span>。
-                    </p>
-                </div>
-                
-                <!-- Card 2 -->
-                <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ima-purple/20 to-ima-purple/5 flex items-center justify-center mb-6">
-                        <i data-lucide="film" class="w-7 h-7 text-ima-purple"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Workflow-First Creation</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        对话 × 画布，重新定义创作流。聊天式交互配合视频创作画布，从脚本到成片，在一个工作流里完成。<span class="lobster-text">专业级效率，零学习曲线</span>。
-                    </p>
-                </div>
-                
-                <!-- Card 3 -->
-                <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ima-lobster/20 to-ima-lobster/5 flex items-center justify-center mb-6">
-                        <i data-lucide="globe" class="w-7 h-7 text-ima-lobster"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">Community Intelligence</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        社区不只存作品，也存智慧。分享你的 Skill、工作流和创作经验。社区的每一次分享，都是下一个创作者<span class="lobster-text">站在巨人肩膀上的机会</span>。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Demo Section -->
-    <section id="demo" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    See It <span class="gradient-text">in Action</span>
-                </h2>
-            </div>
-            
-            <!-- Tabs -->
-            <div class="flex justify-center gap-4 mb-8 overflow-x-auto pb-4 reveal">
-                <button class="demo-tab active" onclick="switchTab(0)">电商广告，10分钟出片</button>
-                <button class="demo-tab" onclick="switchTab(1)">安装一个 Skill，解锁新能力</button>
-                <button class="demo-tab" onclick="switchTab(2)">分享你的工作流给社区</button>
-            </div>
-            
-            <!-- Tab Content -->
-            <div class="demo-canvas p-8 reveal">
-                <div id="tab-0" class="tab-content">
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="space-y-4">
-                            <div class="bg-ima-card rounded-lg p-4 border border-ima-border">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <span class="text-xs text-gray-500">输入产品描述</span>
-                                </div>
-                                <p class="text-sm">"为我的无线耳机创建一个15秒的产品广告，突出降噪功能和长续航"</p>
-                            </div>
-                            <div class="bg-ima-card rounded-lg p-4 border border-ima-border">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <span class="text-xs text-gray-500">AI 理解并生成脚本</span>
-                                </div>
-                                <div class="space-y-2">
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-ima-cyan"></span>
-                                        <span class="text-sm text-gray-400">分析产品卖点</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-ima-purple"></span>
-                                        <span class="text-sm text-gray-400">生成分镜脚本</span>
-                                    </div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="w-2 h-2 rounded-full bg-ima-lobster"></span>
-                                        <span class="text-sm text-gray-400">创建视频片段</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="canvas-container h-80 flex items-center justify-center">
-                            <div class="canvas-grid"></div>
-                            <div class="relative z-10 text-center">
-                                <div class="w-32 h-32 rounded-xl bg-gradient-to-br from-ima-cyan/20 to-ima-purple/20 border border-ima-cyan/30 flex items-center justify-center mb-4 mx-auto">
-                                    <i data-lucide="play" class="w-12 h-12 text-ima-cyan"></i>
-                                </div>
-                                <p class="text-sm text-gray-400">视频生成完成</p>
-                                <p class="text-xs text-gray-600 mt-1">用时 8 分 32 秒</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="tab-1" class="tab-content hidden">
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="skill-card">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-lg bg-ima-cyan/20 flex items-center justify-center">
-                                    <i data-lucide="video" class="w-5 h-5 text-ima-cyan"></i>
-                                </div>
-                                <span class="font-medium">Video Pro</span>
-                            </div>
-                            <p class="text-sm text-gray-400">专业视频剪辑与特效</p>
-                            <button class="mt-3 text-sm text-ima-cyan hover:underline">一键安装 →</button>
-                        </div>
-                        
-                        <div class="skill-card">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-lg bg-ima-purple/20 flex items-center justify-center">
-                                    <i data-lucide="image" class="w-5 h-5 text-ima-purple"></i>
-                                </div>
-                                <span class="font-medium">Image Master</span>
-                            </div>
-                            <p class="text-sm text-gray-400">高级图像生成与编辑</p>
-                            <button class="mt-3 text-sm text-ima-purple hover:underline">一键安装 →</button>
-                        </div>
-                        
-                        <div class="skill-card">
-                            <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-lg bg-ima-lobster/20 flex items-center justify-center">
-                                    <i data-lucide="music" class="w-5 h-5 text-ima-lobster"></i>
-                                </div>
-                                <span class="font-medium">Audio Studio</span>
-                            </div>
-                            <p class="text-sm text-gray-400">AI 音乐与音效生成</p>
-                            <button class="mt-3 text-sm text-ima-lobster hover:underline">一键安装 →</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div id="tab-2" class="tab-content hidden">
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div class="space-y-4">
-                            <div class="bg-ima-card rounded-lg p-4 border border-ima-border">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium">我的工作流：电商广告模板</span>
-                                    <span class="text-xs text-gray-500">已保存</span>
-                                </div>
-                                <p class="text-sm text-gray-400">从脚本到成片的全自动化流程</p>
-                            </div>
-                            <button class="btn-special w-full">发布到社区</button>
-                        </div>
-                        
-                        <div class="bg-ima-card rounded-lg p-4 border border-ima-border">
-                            <p class="text-sm text-gray-500 mb-3">社区反馈</p>
-                            <div class="space-y-3">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=10" class="w-8 h-8 rounded-full" alt="">
-                                    <div>
-                                        <p class="text-sm">太实用了！直接 fork 使用</p>
-                                        <p class="text-xs text-gray-500">@creator_01 · 2小时前</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-center gap-3">
-                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=11" class="w-8 h-8 rounded-full" alt="">
-                                    <div>
-                                        <p class="text-sm">求合作，可以应用到我的项目中</p>
-                                        <p class="text-xs text-gray-500">@dev_mark · 5小时前</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Skills Section -->
-    <section id="skills" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    100+ <span class="gradient-text">Skills</span>.
-                </h2>
-                <p class="text-xl text-gray-400">Growing Every Day.</p>
-            </div>
-            
-            <!-- Category Tags -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
-                <span class="px-4 py-2 rounded-full bg-ima-cyan/10 text-ima-cyan text-sm border border-ima-cyan/20">视频创作</span>
-                <span class="px-4 py-2 rounded-full bg-ima-purple/10 text-ima-purple text-sm border border-ima-purple/20">图片生成</span>
-                <span class="px-4 py-2 rounded-full bg-ima-lobster/10 text-ima-lobster text-sm border border-ima-lobster/20">电商素材</span>
-                <span class="px-4 py-2 rounded-full bg-white/5 text-gray-400 text-sm border border-white/10">短剧制作</span>
-                <span class="px-4 py-2 rounded-full bg-white/5 text-gray-400 text-sm border border-white/10">音乐生成</span>
-                <span class="px-4 py-2 rounded-full bg-white/5 text-gray-400 text-sm border border-white/10">工作流自动化</span>
-            </div>
-            
-            <!-- Masonry Grid -->
-            <div class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 reveal">
-                <div class="skill-card">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-ima-cyan/20 to-ima-purple/20 flex items-center justify-center">
-                            <i data-lucide="wand-2" class="w-5 h-5 text-ima-cyan"></i>
-                        </div>
-                        <span class="font-medium">AI Magic Edit</span>
-                    </div>
-                    <p class="text-sm text-gray-400">一键智能修图，自动识别并优化图像元素</p>
-                </div>
-                
-                <div class="skill-card">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-ima-lobster/20 to-ima-orange/20 flex items-center justify-center">
-                            <i data-lucide="shopping-bag" class="w-5 h-5 text-ima-lobster"></i>
-                        </div>
-                        <span class="font-medium">Product Shot Pro</span>
-                    </div>
-                    <p class="text-sm text-gray-400">电商产品图自动生成，支持多种场景和风格</p>
-                </div>
-                
-                <div class="skill-card">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-ima-purple/20 to-ima-cyan/20 flex items-center justify-center">
-                            <i data-lucide="clapperboard" class="w-5 h-5 text-ima-purple"></i>
-                        </div>
-                        <span class="font-medium">Short Drama Maker</span>
-                    </div>
-                    <p class="text-sm text-gray-400">短剧创作全流程，从剧本到成片一键生成</p>
-                </div>
-                
-                <div class="skill-card">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500/20 to-ima-cyan/20 flex items-center justify-center">
-                            <i data-lucide="music" class="w-5 h-5 text-green-400"></i>
-                        </div>
-                        <span class="font-medium">Suno Music Gen</span>
-                    </div>
-                    <p class="text-sm text-gray-400">AI 音乐生成，支持多种风格和情绪定制</p>
-                </div>
-                
-                <div class="skill-card">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-500/20 to-ima-orange/20 flex items-center justify-center">
-                            <i data-lucide="zap" class="w-5 h-5 text-yellow-400"></i>
-                        </div>
-                        <span class="font-medium">Auto Workflow</span>
-                    </div>
-                    <p class="text-sm text-gray-400">自动化工作流，批量处理重复性创作任务</p>
-                </div>
-                
-                <div class="skill-card">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-500/20 to-ima-lobster/20 flex items-center justify-center">
-                            <i data-lucide="palette" class="w-5 h-5 text-pink-400"></i>
-                        </div>
-                        <span class="font-medium">Style Transfer</span>
-                    </div>
-                    <p class="text-sm text-gray-400">风格迁移大师，一键应用任意艺术风格</p>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12 reveal">
-                <button class="btn-secondary">
-                    探索全部 Skills →
-                </button>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Community Section -->
-    <section id="community" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    Your Work Lives Here.
-                    <span class="gradient-text block mt-2">So Does Your Knowledge.</span>
-                </h2>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Works Gallery -->
-                <div class="reveal">
-                    <div class="flex items-center gap-3 mb-6">
-                        <i data-lucide="image" class="w-6 h-6 text-ima-cyan"></i>
-                        <h3 class="text-xl font-semibold">作品库</h3>
-                        <span class="text-sm text-gray-500">你创作的成果</span>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="aspect-square rounded-xl bg-gradient-to-br from-ima-cyan/10 to-ima-purple/10 border border-ima-border flex items-center justify-center">
-                            <i data-lucide="video" class="w-8 h-8 text-ima-cyan"></i>
-                        </div>
-                        
-                        <div class="aspect-square rounded-xl bg-gradient-to-br from-ima-lobster/10 to-ima-orange/10 border border-ima-border flex items-center justify-center">
-                            <i data-lucide="image" class="w-8 h-8 text-ima-lobster"></i>
-                        </div>
-                        
-                        <div class="aspect-square rounded-xl bg-gradient-to-br from-ima-purple/10 to-ima-cyan/10 border border-ima-border flex items-center justify-center">
-                            <i data-lucide="music" class="w-8 h-8 text-ima-purple"></i>
-                        </div>
-                        
-                        <div class="aspect-square rounded-xl bg-gradient-to-br from-green-500/10 to-ima-cyan/10 border border-ima-border flex items-center justify-center">
-                            <i data-lucide="sparkles" class="w-8 h-8 text-green-400"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Knowledge Base -->
-                <div class="reveal">
-                    <div class="flex items-center gap-3 mb-6">
-                        <i data-lucide="book-open" class="w-6 h-6 text-ima-lobster"></i>
-                        <h3 class="text-xl font-semibold">经验库</h3>
-                        <span class="text-sm text-gray-500">你沉淀的方法</span>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="bg-ima-card rounded-xl p-4 border border-ima-border">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="px-2 py-1 bg-ima-cyan/10 text-ima-cyan text-xs rounded">工作流</span>
-                            </div>
-                            <h4 class="font-medium mb-1">电商广告全流程自动化</h4>
-                            <p class="text-sm text-gray-400">从脚本到成片，10分钟搞定</p>
-                            <div class="flex items-center gap-2 mt-3">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=20" class="w-6 h-6 rounded-full" alt="">
-                                <span class="text-xs text-gray-500">@creator_alex · 234 次使用</span>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-ima-card rounded-xl p-4 border border-ima-border">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="px-2 py-1 bg-ima-lobster/10 text-ima-lobster text-xs rounded">经验</span>
-                            </div>
-                            <h4 class="font-medium mb-1">短剧分镜设计指南</h4>
-                            <p class="text-sm text-gray-400">AI 辅助分镜，提升创作效率</p>
-                            <div class="flex items-center gap-2 mt-3">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=21" class="w-6 h-6 rounded-full" alt="">
-                                <span class="text-xs text-gray-500">@director_li · 189 次使用</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Social Proof Section -->
-    <section class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    What <span class="gradient-text">Creators</span> Say
-                </h2>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Quote 1 -->
-                <div class="quote-card reveal">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=30" class="w-12 h-12 rounded-full" alt="">
-                        <div>
-                            <p class="font-medium">电商卖家</p>
-                            <p class="text-sm text-gray-500">@shop_owner_wang</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        「以前做一条广告片要外包3天，现在<span class="lobster-text">自己1小时搞定</span>」
-                    </p>
-                </div>
-                
-                <!-- Quote 2 -->
-                <div class="quote-card reveal">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=31" class="w-12 h-12 rounded-full" alt="">
-                        <div>
-                            <p class="font-medium">短剧创作者</p>
-                            <p class="text-sm text-gray-500">@drama_creator_chen</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        「画布工作流改变了我的分镜方式，<span class="lobster-text">效率提升不止10倍</span>」
-                    </p>
-                </div>
-                
-                <!-- Quote 3 -->
-                <div class="quote-card reveal">
-                    <div class="flex items-center gap-3 mb-4">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=32" class="w-12 h-12 rounded-full" alt="">
-                        <div>
-                            <p class="font-medium">独立开发者</p>
-                            <p class="text-sm text-gray-500">@indie_dev_zhang</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed">
-                        「把 Skill 发到社区，<span class="lobster-text">第二天就有人来问合作了</span>」
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer CTA -->
-    <section class="py-24 relative">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="relative rounded-3xl overflow-hidden p-12 md:p-16 text-center reveal">
-                <!-- Background -->
-                <div class="absolute inset-0 bg-gradient-to-br from-ima-cyan/10 via-ima-purple/10 to-ima-lobster/10"></div>
-                <div class="absolute inset-0 backdrop-blur-3xl"></div>
-                <div class="absolute inset-0 border border-white/10 rounded-3xl"></div>
-                
-                <div class="relative z-10">
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                        Ready to Own Your
-                        <span class="gradient-text block mt-2">Creative OS?</span>
-                    </h2>
-                    
-                    <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-                        Start free. Install your first Skill in 60 seconds.
-                    </p>
-                    
-                    <div class="flex flex-wrap justify-center gap-4">
-                        <button class="btn-special text-lg px-8 py-4">
-                            Get Started Free
-                        </button>
-                        
-                        <button class="btn-secondary text-lg px-8 py-4">
-                            Talk to Us
-                        </button>
-                    </div>
-                    
-                    <p class="mt-6 text-sm text-gray-500">无需信用卡 · 免费额度每月重置 · 随时取消</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Footer -->
-    <footer class="border-t border-white/10 py-12">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div class="md:col-span-2">
-                    <a href="#" class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-ima-cyan to-ima-purple flex items-center justify-center">
-                            <i data-lucide="zap" class="w-5 h-5 text-white"></i>
-                        </div>
-                        <span class="text-xl font-bold">IMA Studio</span>
-                    </a>
-                    <p class="text-gray-400 max-w-sm">
-                        AI creation embedded in your workflow — not just a tab, but a living part of how you make things.
-                    </p>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">产品</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">iMaclaw</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Skills Store</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">定价</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">社区</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">作品展示</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">经验分享</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">创作者计划</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">帮助中心</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-sm">© 2026 IMA Studio. All rights reserved.</p>
-                <div class="flex items-center gap-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i data-lucide="twitter" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i data-lucide="github" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i data-lucide="linkedin" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                        <i data-lucide="youtube" class="w-5 h-5"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
-        
-        // Scroll Reveal Animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        
-        // Tab Switching
-        function switchTab(index) {
-            // Update tab buttons
-            document.querySelectorAll('.demo-tab').forEach((tab, i) => {
-                if (i === index) {
-                    tab.classList.add('active');
-                } else {
-                    tab.classList.remove('active');
-                }
-            });
-            
-            // Update tab content
-            document.querySelectorAll('.tab-content').forEach((content, i) => {
-                if (i === index) {
-                    content.classList.remove('hidden');
-                } else {
-                    content.classList.add('hidden');
-                }
-            });
-        }
-        
-        // Typing Animation
-        const typingElement = document.getElementById('hero-typing');
-        const texts = [
-            'Create a 15s product ad for my wireless earbuds...',
-            'Generate a storyboard for my short drama...',
-            'Make a music video with AI visuals...'
-        ];
-        let textIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        
-        function typeText() {
-            const currentText = texts[textIndex];
-            
-            if (isDeleting) {
-                typingElement.textContent = currentText.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingElement.textContent = currentText.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            
-            let typeSpeed = isDeleting ? 50 : 100;
-            
-            if (!isDeleting && charIndex === currentText.length) {
-                typeSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                textIndex = (textIndex + 1) % texts.length;
-                typeSpeed = 500;
-            }
-            
-            setTimeout(typeText, typeSpeed);
-        }
-        
-        // Start typing animation
-        setTimeout(typeText, 1000);
-        
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
