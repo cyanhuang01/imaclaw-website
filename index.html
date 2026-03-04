@@ -20,6 +20,7 @@
         :root {
             --bg-primary: #050505;
             --bg-secondary: #0A0A0A;
+            --bg-card: #111118;
             --accent-purple: #7B61FF;
             --accent-purple-light: #9B85FF;
             --accent-pink: #E066FF;
@@ -37,54 +38,29 @@
             line-height: 1.5;
         }
         
-        /* Aurora Background Animation */
+        /* Animated Gradient Background */
         .hero-bg {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
             z-index: 0;
-        }
-        
-        .aurora {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120%;
-            height: 120%;
             background: 
-                radial-gradient(ellipse 80% 50% at 50% 30%, rgba(123, 97, 255, 0.4) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 40% at 70% 60%, rgba(224, 102, 255, 0.2) 0%, transparent 50%),
-                radial-gradient(ellipse 50% 30% at 30% 70%, rgba(123, 97, 255, 0.15) 0%, transparent 40%);
-            animation: aurora-move 20s ease-in-out infinite;
-            filter: blur(60px);
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(123, 97, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(224, 102, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse 50% 30% at 50% 80%, rgba(123, 97, 255, 0.15) 0%, transparent 40%),
+                var(--bg-primary);
+            animation: gradientMove 15s ease-in-out infinite;
         }
         
-        @keyframes aurora-move {
+        @keyframes gradientMove {
             0%, 100% {
-                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+                background-position: 0% 50%, 100% 50%, 50% 100%;
             }
-            33% {
-                transform: translate(-48%, -52%) rotate(5deg) scale(1.05);
+            50% {
+                background-position: 100% 50%, 0% 50%, 50% 0%;
             }
-            66% {
-                transform: translate(-52%, -48%) rotate(-5deg) scale(0.95);
-            }
-        }
-        
-        /* Noise Texture Overlay */
-        .noise {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.03;
-            z-index: 1;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
         }
         
         /* Navigation */
@@ -113,7 +89,6 @@
         .logo-icon {
             width: 36px;
             height: 36px;
-            background: transparent;
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -191,7 +166,6 @@
             z-index: 2;
         }
         
-        /* Tag */
         .tag {
             display: inline-flex;
             align-items: center;
@@ -219,7 +193,6 @@
             50% { opacity: 0.5; }
         }
         
-        /* Hero Title */
         .hero-title {
             font-size: clamp(48px, 8vw, 80px);
             font-weight: 800;
@@ -236,7 +209,6 @@
             background-clip: text;
         }
         
-        /* Hero Subtitle */
         .hero-subtitle {
             font-size: 18px;
             font-weight: 400;
@@ -246,7 +218,6 @@
             line-height: 1.6;
         }
         
-        /* Hero Buttons */
         .hero-buttons {
             display: flex;
             gap: 16px;
@@ -280,7 +251,6 @@
             border-color: var(--text-muted);
         }
         
-        /* Social Proof */
         .social-proof {
             margin-top: 80px;
             text-align: center;
@@ -319,7 +289,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             border: 2px solid var(--bg-primary);
             display: flex;
             align-items: center;
@@ -340,27 +310,85 @@
             font-weight: 600;
         }
         
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
+        /* Why IMA Section */
+        .why-ima {
+            position: relative;
+            padding: 120px 20px;
+            z-index: 2;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        
+        .section-label {
             font-size: 12px;
-            animation: bounce 2s infinite;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-purple);
+            margin-bottom: 16px;
         }
         
-        @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+            max-width: 700px;
+            margin: 0 auto;
         }
         
-        /* Responsive */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(123, 97, 255, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .feature-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        .feature-desc .highlight {
+            color: var(--accent-pink);
+            font-weight: 500;
+        }
+        
         @media (max-width: 768px) {
             nav {
                 padding: 16px 20px;
@@ -378,24 +406,21 @@
                 font-size: 40px;
             }
             
-            .hero-subtitle {
-                font-size: 16px;
+            .cards-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Aurora Background -->
-    <div class="hero-bg">
-        <div class="aurora"></div>
-        <div class="noise"></div>
-    </div>
+    <!-- Background -->
+    <div class="hero-bg"></div>
     
     <!-- Navigation -->
     <nav>
         <a href="#" class="logo">
             <div class="logo-icon">
-                <img src="https://cyanhuang01.github.io/imaclaw-website/logo.png" alt="IMA Logo" style="width: 36px; height: 36px; object-fit: contain;">
+                <img src="https://cyanhuang01.github.io/imaclaw-website/logo.png" alt="IMA Logo">
             </div>
             IMA Studio
         </a>
@@ -456,6 +481,43 @@
                     <div class="avatar-count">+2k</div>
                 </div>
                 <span class="social-proof-stats"><strong>2,000+</strong> creators joined</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Why IMA Section -->
+    <section class="why-ima">
+        <div class="section-header">
+            <p class="section-label">Why IMA</p>
+            <h2 class="section-title">AI Solutions That Take Your Creation to the Next Level</h2>
+        </div>
+        
+        <div class="cards-grid">
+            <!-- Card 1 -->
+            <div class="feature-card">
+                <div class="feature-icon">🖥️</div>
+                <h3 class="feature-title">不是网站，是你的创作底座</h3>
+                <p class="feature-desc">
+                    通过 <span class="highlight">iMaclaw</span>，将 IMA Studio 的能力直接嵌入你的操作系统。在任何 App 里唤醒，<span class="highlight">不再切换标签页</span>。
+                </p>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h3 class="feature-title">对话 × 画布，重新定义创作流</h3>
+                <p class="feature-desc">
+                    聊天式交互配合视频创作画布，从脚本到成片，在一个工作流里完成。<span class="highlight">专业级效率，零学习曲线</span>。
+                </p>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3 class="feature-title">社区不只存作品，也存智慧</h3>
+                <p class="feature-desc">
+                    分享你的 Skill、工作流和创作经验。社区的每一次分享，都是下一个创作者<span class="highlight">站在巨人肩膀上的机会</span>。
+                </p>
             </div>
         </div>
     </section>
