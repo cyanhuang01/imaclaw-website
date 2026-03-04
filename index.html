@@ -3,32 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iMaclaw - AI 智能助手，开箱即用</title>
-    <meta name="description" content="iMaclaw 是 IMA Studio 推出的 AI 智能助手，无需技术配置，即刻体验 AI 内容创作">
+    <title>IMA Studio - Create with Your OS, Not Just a Website</title>
+    <meta name="description" content="IMA Studio brings AI creation into your workflow — not just a tab, but a living part of how you make things.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Framer Motion -->
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
-    
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <style>
-        :root {
-            --primary: #00D4FF;
-            --secondary: #FF6B35;
-            --accent: #7B61FF;
-            --dark: #0A0A0F;
-            --darker: #050508;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ima-dark': '#0A0A0F',
+                        'ima-darker': '#050508',
+                        'ima-card': '#111118',
+                        'ima-border': '#1E1E2A',
+                        'ima-cyan': '#00D4FF',
+                        'ima-purple': '#7B61FF',
+                        'ima-orange': '#FF6B35',
+                        'ima-lobster': '#FF4757',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans SC', 'sans-serif'],
+                    }
+                }
+            }
         }
-        
+    </script>
+    
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -37,7 +48,7 @@
         
         body {
             font-family: 'Inter', 'Noto Sans SC', sans-serif;
-            background: var(--darker);
+            background: #050508;
             color: #fff;
             overflow-x: hidden;
         }
@@ -49,12 +60,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
+            z-index: -2;
             background: 
-                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(123, 97, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(255, 107, 53, 0.05) 0%, transparent 70%),
-                var(--darker);
+                radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(123, 97, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 71, 87, 0.05) 0%, transparent 60%),
+                #050508;
         }
         
         .aurora-bg::before {
@@ -65,9 +76,9 @@
             width: 200%;
             height: 200%;
             background: 
-                radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 70% 70%, rgba(123, 97, 255, 0.06) 0%, transparent 40%);
-            animation: aurora 20s ease-in-out infinite;
+                radial-gradient(circle at 30% 30%, rgba(0, 212, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(123, 97, 255, 0.04) 0%, transparent 40%);
+            animation: aurora 25s ease-in-out infinite;
         }
         
         @keyframes aurora {
@@ -85,9 +96,9 @@
             height: 100%;
             z-index: -1;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 80px 80px;
             mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
         }
         
@@ -95,42 +106,39 @@
         .nav-blur {
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            background: rgba(10, 10, 15, 0.8);
+            background: rgba(5, 5, 8, 0.8);
             border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        /* Glow Effects */
-        .glow-text {
-            text-shadow: 0 0 40px rgba(0, 212, 255, 0.5);
-        }
-        
-        .glow-box {
-            box-shadow: 
-                0 0 60px rgba(0, 212, 255, 0.2),
-                inset 0 0 60px rgba(0, 212, 255, 0.05);
         }
         
         /* Gradient Text */
         .gradient-text {
-            background: linear-gradient(135deg, #00D4FF 0%, #7B61FF 50%, #FF6B35 100%);
+            background: linear-gradient(135deg, #00D4FF 0%, #7B61FF 50%, #FF4757 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         
-        /* Button Styles */
-        .btn-primary {
-            background: linear-gradient(135deg, #00D4FF 0%, #0099CC 100%);
-            color: #000;
+        /* Lobster Highlight */
+        .lobster-text {
+            color: #FF4757;
             font-weight: 600;
-            padding: 14px 32px;
+        }
+        
+        /* Special Button */
+        .btn-special {
+            background: linear-gradient(135deg, #FF4757 0%, #FF6B35 100%);
+            color: #fff;
+            font-weight: 600;
+            padding: 16px 36px;
             border-radius: 12px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            border: none;
+            cursor: pointer;
         }
         
-        .btn-primary::before {
+        .btn-special::before {
             content: '';
             position: absolute;
             top: 0;
@@ -141,13 +149,13 @@
             transition: left 0.5s ease;
         }
         
-        .btn-primary:hover::before {
+        .btn-special:hover::before {
             left: 100%;
         }
         
-        .btn-primary:hover {
+        .btn-special:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 10px 40px rgba(255, 71, 87, 0.4);
         }
         
         .btn-secondary {
@@ -155,9 +163,10 @@
             color: #fff;
             border: 1px solid rgba(255,255,255,0.2);
             font-weight: 500;
-            padding: 14px 32px;
+            padding: 16px 36px;
             border-radius: 12px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .btn-secondary:hover {
@@ -165,12 +174,12 @@
             border-color: rgba(255,255,255,0.4);
         }
         
-        /* Card Styles */
+        /* Feature Cards */
         .feature-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(17, 17, 24, 0.8);
+            border: 1px solid #1E1E2A;
             border-radius: 20px;
-            padding: 32px;
+            padding: 40px 32px;
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
@@ -187,72 +196,60 @@
         }
         
         .feature-card:hover {
-            background: rgba(255,255,255,0.05);
+            background: rgba(17, 17, 24, 0.95);
             border-color: rgba(0, 212, 255, 0.3);
             transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
         
-        /* Orbit Animation */
-        .orbit-container {
-            position: relative;
-            width: 500px;
-            height: 500px;
+        /* Demo Canvas */
+        .demo-canvas {
+            background: rgba(17, 17, 24, 0.6);
+            border: 1px solid #1E1E2A;
+            border-radius: 16px;
+            overflow: hidden;
         }
         
-        .orbit-ring {
-            position: absolute;
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        /* Skill Cards Masonry */
+        .skill-card {
+            background: rgba(17, 17, 24, 0.6);
+            border: 1px solid #1E1E2A;
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            break-inside: avoid;
+            margin-bottom: 16px;
         }
         
-        .orbit-ring-1 {
-            width: 200px;
-            height: 200px;
-            animation: rotate 20s linear infinite;
+        .skill-card:hover {
+            border-color: rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
         }
         
-        .orbit-ring-2 {
-            width: 320px;
-            height: 320px;
-            animation: rotate 30s linear infinite reverse;
+        /* Quote Cards */
+        .quote-card {
+            background: rgba(17, 17, 24, 0.8);
+            border-left: 3px solid #FF4757;
+            padding: 32px;
+            border-radius: 0 16px 16px 0;
         }
         
-        .orbit-ring-3 {
-            width: 440px;
-            height: 440px;
-            animation: rotate 40s linear infinite;
+        /* Tab Styles */
+        .demo-tab {
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap;
         }
         
-        @keyframes rotate {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+        .demo-tab.active {
+            background: rgba(255, 71, 87, 0.2);
+            color: #FF4757;
         }
         
-        .orbit-item {
-            position: absolute;
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(123, 97, 255, 0.2));
-            border: 1px solid rgba(0, 212, 255, 0.4);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-        }
-        
-        /* Floating Animation */
-        .float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        .demo-tab:hover:not(.active) {
+            background: rgba(255,255,255,0.05);
         }
         
         /* Scroll Reveal */
@@ -267,86 +264,103 @@
             transform: translateY(0);
         }
         
-        /* Particle Canvas */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
+        /* Typing Animation */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+            color: #FF4757;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Canvas Animation */
+        .canvas-container {
+            position: relative;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(123, 97, 255, 0.05));
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .canvas-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
-            .orbit-container {
-                width: 300px;
-                height: 300px;
+            .hero-animation {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Background Effects -->
+    <!-- Background -->
     <div class="aurora-bg"></div>
     <div class="grid-pattern"></div>
-    <canvas id="particles"></canvas>
     
     <!-- Navigation -->
     <nav class="nav-blur fixed top-0 left-0 right-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <a href="#" class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center">
-                        <i data-lucide="zap" class="w-5 h-5 text-black"></i>
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-ima-cyan to-ima-purple flex items-center justify-center">
+                        <i data-lucide="zap" class="w-5 h-5 text-white"></i>
                     </div>
-                    <span class="text-xl font-bold">iMaclaw</span>
+                    <span class="text-xl font-bold">IMA Studio</span>
                 </a>
                 
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#features" class="text-gray-400 hover:text-white transition-colors">功能</a>
-                    <a href="#how-it-works" class="text-gray-400 hover:text-white transition-colors">工作原理</a>
-                    <a href="#pricing" class="text-gray-400 hover:text-white transition-colors">定价</a>
-                    <a href="#docs" class="text-gray-400 hover:text-white transition-colors">文档</a>
+                    <a href="#features" class="text-gray-400 hover:text-white transition-colors">Why IMA</a>
+                    <a href="#demo" class="text-gray-400 hover:text-white transition-colors">Demo</a>
+                    <a href="#skills" class="text-gray-400 hover:text-white transition-colors">Skills</a>
+                    <a href="#community" class="text-gray-400 hover:text-white transition-colors">Community</a>
                 </div>
                 
                 <div class="flex items-center gap-4">
-                    <a href="#" class="hidden sm:block text-gray-400 hover:text-white transition-colors">登录</a>
-                    <button class="btn-primary text-sm">免费试用</button>
+                    <a href="#" class="hidden sm:block text-gray-400 hover:text-white transition-colors">Sign In</a>
+                    <button class="btn-special text-sm px-6 py-3">Start Creating Free</button>
                 </div>
             </div>
         </div>
     </nav>
     
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center pt-20 relative overflow-hidden">
+    <section class="min-h-screen flex items-center pt-24 pb-12 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 w-full">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <!-- Left Content -->
                 <div class="space-y-8">
                     <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-                        <span class="text-sm text-gray-400">iMaclaw 现已开放测试</span>
+                        <span class="w-2 h-2 rounded-full bg-ima-lobster animate-pulse"></span>
+                        <span class="text-sm text-gray-400">iMaclaw Beta Now Available</span>
                     </div>
                     
                     <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                        AI 智能助手
-                        <span class="gradient-text block mt-2">开箱即用</span>
+                        Create with
+                        <span class="gradient-text block mt-2">Your OS.</span>
                     </h1>
                     
                     <p class="text-xl text-gray-400 max-w-lg leading-relaxed">
-                        无需复杂配置，无需技术背景。像聊天一样使用 AI，让创意即刻变为现实。
+                        IMA Studio brings AI creation into your workflow — 
+                        <span class="lobster-text">not just a tab</span>, 
+                        but a living part of how you make things.
                     </p>
                     
                     <div class="flex flex-wrap gap-4">
-                        <button class="btn-primary flex items-center gap-2">
-                            <span>开始免费试用</span>
+                        <button class="btn-special flex items-center gap-2">
+                            <span>Start Creating Free</span>
                             <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </button>
                         <button class="btn-secondary flex items-center gap-2">
-                            <i data-lucide="play-circle" class="w-5 h-5"></i>
-                            <span>观看演示</span>
+                            <span>Explore Skills →</span>
                         </button>
                     </div>
                     
@@ -357,46 +371,57 @@
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=3" class="w-10 h-10 rounded-full border-2 border-gray-900" alt="">
                             <div class="w-10 h-10 rounded-full border-2 border-gray-900 bg-gray-800 flex items-center justify-center text-xs">+2k</div>
                         </div>
-                        <p class="text-sm text-gray-500">已有 <span class="text-white font-semibold">2,000+</span> 创作者加入</p>
+                        <p class="text-sm text-gray-500"><span class="text-white font-semibold">2,000+</span> creators joined</p>
                     </div>
                 </div>
                 
-                <!-- Right Visual - Orbit -->
-                <div class="relative flex justify-center items-center">
-                    <div class="orbit-container">
-                        <!-- Center Logo -->
-                        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-400 to-purple-600 flex items-center justify-center glow-box z-10">
-                            <i data-lucide="bot" class="w-12 h-12 text-white"></i>
-                        </div>
-                        
-                        <!-- Orbit Rings -->
-                        <div class="orbit-ring orbit-ring-1">
-                            <div class="orbit-item" style="top: -24px; left: 50%; transform: translateX(-50%);">
-                                <i data-lucide="image" class="w-5 h-5 text-cyan-400"></i>
+                <!-- Right - Creative Canvas Animation -->
+                <div class="hero-animation relative">
+                    <div class="demo-canvas p-6">
+                        <!-- Chat Interface -->
+                        <div class="bg-ima-card rounded-xl p-4 mb-4 border border-ima-border">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-ima-cyan to-ima-purple"></div>
+                                <span class="text-sm text-gray-400">You</span>
                             </div>
-                            <div class="orbit-item" style="bottom: -24px; left: 50%; transform: translateX(-50%);">
-                                <i data-lucide="video" class="w-5 h-5 text-purple-400"></i>
+                            <div class="bg-white/5 rounded-lg p-3">
+                                <p class="text-sm typing-cursor" id="hero-typing">Create a 15s product ad for my wireless earbuds...</p>
                             </div>
                         </div>
                         
-                        <div class="orbit-ring orbit-ring-2">
-                            <div class="orbit-item" style="top: 50%; right: -24px; transform: translateY(-50%);">
-                                <i data-lucide="music" class="w-5 h-5 text-pink-400"></i>
-                            </div>
-                            <div class="orbit-item" style="top: 50%; left: -24px; transform: translateY(-50%);">
-                                <i data-lucide="sparkles" class="w-5 h-5 text-yellow-400"></i>
-                            </div>
-                        </div>
-                        
-                        <div class="orbit-ring orbit-ring-3">
-                            <div class="orbit-item" style="top: 10%; right: 10%;">
-                                <i data-lucide="wand-2" class="w-5 h-5 text-green-400"></i>
-                            </div>
-                            <div class="orbit-item" style="bottom: 10%; left: 10%;">
-                                <i data-lucide="message-square" class="w-5 h-5 text-orange-400"></i>
-                            </div>
-                            <div class="orbit-item" style="top: 10%; left: 10%;">
-                                <i data-lucide="brain" class="w-5 h-5 text-red-400"></i>
+                        <!-- Canvas Workspace -->
+                        <div class="canvas-container h-64">
+                            <div class="canvas-grid"></div>
+                            <div class="relative z-10 p-4 h-full flex flex-col">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-xs text-gray-500">Canvas Workspace</span>
+                                    <div class="flex gap-2">
+                                        <span class="px-2 py-1 bg-ima-lobster/20 text-ima-lobster text-xs rounded">Generating...</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex-1 flex items-center justify-center gap-4">
+                                    <div class="text-center">
+                                        <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center mb-2 animate-pulse">
+                                            <i data-lucide="image" class="w-6 h-6 text-gray-500"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Storyboard</span>
+                                    </div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
+                                    <div class="text-center">
+                                        <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-ima-cyan/20 to-ima-purple/20 flex items-center justify-center mb-2 border border-ima-cyan/30">
+                                            <i data-lucide="video" class="w-6 h-6 text-ima-cyan"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Video</span>
+                                    </div>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
+                                    <div class="text-center">
+                                        <div class="w-16 h-16 rounded-lg bg-gradient-to-br from-ima-lobster/20 to-ima-orange/20 flex items-center justify-center mb-2 border border-ima-lobster/30">
+                                            <i data-lucide="check" class="w-6 h-6 text-ima-lobster"></i>
+                                        </div>
+                                        <span class="text-xs text-gray-500">Done</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -405,167 +430,443 @@
         </div>
     </section>
     
-    <!-- Features Section -->
+    <!-- Why IMA Section -->
     <section id="features" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    为什么选择 <span class="gradient-text">iMaclaw</span>
+                    Why <span class="gradient-text">IMA</span>?
                 </h2>
                 <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                    告别繁琐的配置，专注于创造。我们为你处理所有技术细节。
+                    From tools embedded in your OS to workflows that think with you.
                 </p>
             </div>
             
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Feature 1 -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
                 <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-cyan-500/5 flex items-center justify-center mb-6">
-                        <i data-lucide="zap" class="w-7 h-7 text-cyan-400"></i>
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ima-cyan/20 to-ima-cyan/5 flex items-center justify-center mb-6">
+                        <i data-lucide="monitor" class="w-7 h-7 text-ima-cyan"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">零配置启动</h3>
+                    <h3 class="text-xl font-semibold mb-3">Embedded in Your OS</h3>
                     <p class="text-gray-400 leading-relaxed">
-                        无需安装、无需配置环境。注册即用，5 分钟内开始你的第一个 AI 创作。
+                        不是网站，是你的创作底座。通过 <span class="lobster-text">iMaclaw</span>，将 IMA Studio 的能力直接嵌入你的操作系统。在任何 App 里唤醒，<span class="lobster-text">不再切换标签页</span>。
                     </p>
                 </div>
                 
-                <!-- Feature 2 -->
+                <!-- Card 2 -->
                 <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-500/5 flex items-center justify-center mb-6">
-                        <i data-lucide="layers" class="w-7 h-7 text-purple-400"></i>
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ima-purple/20 to-ima-purple/5 flex items-center justify-center mb-6">
+                        <i data-lucide="film" class="w-7 h-7 text-ima-purple"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">多模型集成</h3>
+                    <h3 class="text-xl font-semibold mb-3">Workflow-First Creation</h3>
                     <p class="text-gray-400 leading-relaxed">
-                        自动选择最优 AI 模型。图像、视频、音乐，一个平台搞定所有创作需求。
+                        对话 × 画布，重新定义创作流。聊天式交互配合视频创作画布，从脚本到成片，在一个工作流里完成。<span class="lobster-text">专业级效率，零学习曲线</span>。
                     </p>
                 </div>
                 
-                <!-- Feature 3 -->
+                <!-- Card 3 -->
                 <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-pink-500/5 flex items-center justify-center mb-6">
-                        <i data-lucide="shield-check" class="w-7 h-7 text-pink-400"></i>
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-ima-lobster/20 to-ima-lobster/5 flex items-center justify-center mb-6">
+                        <i data-lucide="globe" class="w-7 h-7 text-ima-lobster"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">企业级安全</h3>
+                    <h3 class="text-xl font-semibold mb-3">Community Intelligence</h3>
                     <p class="text-gray-400 leading-relaxed">
-                        数据加密传输与存储，支持私有化部署。你的创意资产安全无忧。
-                    </p>
-                </div>
-                
-                <!-- Feature 4 -->
-                <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500/20 to-green-500/5 flex items-center justify-center mb-6">
-                        <i data-lucide="workflow" class="w-7 h-7 text-green-400"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">智能工作流</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        从提示词到成品，AI 自动优化每一步。支持批量处理与自定义流程。
-                    </p>
-                </div>
-                
-                <!-- Feature 5 -->
-                <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-500/5 flex items-center justify-center mb-6">
-                        <i data-lucide="users" class="w-7 h-7 text-orange-400"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">团队协作</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        实时协作、版本管理、权限控制。让团队创作更高效、更有序。
-                    </p>
-                </div>
-                
-                <!-- Feature 6 -->
-                <div class="feature-card reveal">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-500/5 flex items-center justify-center mb-6">
-                        <i data-lucide="code-2" class="w-7 h-7 text-yellow-400"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-3">API 优先</h3>
-                    <p class="text-gray-400 leading-relaxed">
-                        完整的 RESTful API 和 SDK。轻松集成到你的现有工作流中。
+                        社区不只存作品，也存智慧。分享你的 Skill、工作流和创作经验。社区的每一次分享，都是下一个创作者<span class="lobster-text">站在巨人肩膀上的机会</span>。
                     </p>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- How It Works -->
-    <section id="how-it-works" class="py-24 relative">
+    <!-- Demo Section -->
+    <section id="demo" class="py-24 relative">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 reveal">
+            <div class="text-center mb-12 reveal">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                    三步开启 <span class="gradient-text">AI 创作</span>
+                    See It <span class="gradient-text">in Action</span>
                 </h2>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Step 1 -->
-                <div class="relative reveal">
-                    <div class="text-8xl font-bold text-white/5 absolute -top-8 -left-4">01</div>
-                    <div class="relative pt-8">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-400 to-cyan-600 flex items-center justify-center mb-6">
-                            <i data-lucide="user-plus" class="w-8 h-8 text-white"></i>
+            <!-- Tabs -->
+            <div class="flex justify-center gap-4 mb-8 overflow-x-auto pb-4 reveal">
+                <button class="demo-tab active" onclick="switchTab(0)">电商广告，10分钟出片</button>
+                <button class="demo-tab" onclick="switchTab(1)">安装一个 Skill，解锁新能力</button>
+                <button class="demo-tab" onclick="switchTab(2)">分享你的工作流给社区</button>
+            </div>
+            
+            <!-- Tab Content -->
+            <div class="demo-canvas p-8 reveal">
+                <div id="tab-0" class="tab-content">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <div class="bg-ima-card rounded-lg p-4 border border-ima-border">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-xs text-gray-500">输入产品描述</span>
+                                </div>
+                                <p class="text-sm">"为我的无线耳机创建一个15秒的产品广告，突出降噪功能和长续航"</p>
+                            </div>
+                            <div class="bg-ima-card rounded-lg p-4 border border-ima-border">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <span class="text-xs text-gray-500">AI 理解并生成脚本</span>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-ima-cyan"></span>
+                                        <span class="text-sm text-gray-400">分析产品卖点</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-ima-purple"></span>
+                                        <span class="text-sm text-gray-400">生成分镜脚本</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-ima-lobster"></span>
+                                        <span class="text-sm text-gray-400">创建视频片段</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-4">注册账号</h3>
-                        <p class="text-gray-400 leading-relaxed">
-                            使用邮箱或社交账号一键注册。无需信用卡，免费额度立即到账。
-                        </p>
+                        
+                        <div class="canvas-container h-80 flex items-center justify-center">
+                            <div class="canvas-grid"></div>
+                            <div class="relative z-10 text-center">
+                                <div class="w-32 h-32 rounded-xl bg-gradient-to-br from-ima-cyan/20 to-ima-purple/20 border border-ima-cyan/30 flex items-center justify-center mb-4 mx-auto">
+                                    <i data-lucide="play" class="w-12 h-12 text-ima-cyan"></i>
+                                </div>
+                                <p class="text-sm text-gray-400">视频生成完成</p>
+                                <p class="text-xs text-gray-600 mt-1">用时 8 分 32 秒</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Step 2 -->
-                <div class="relative reveal">
-                    <div class="text-8xl font-bold text-white/5 absolute -top-8 -left-4">02</div>
-                    <div class="relative pt-8">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center mb-6">
-                            <i data-lucide="message-circle" class="w-8 h-8 text-white"></i>
+                <div id="tab-1" class="tab-content hidden">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="skill-card">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-lg bg-ima-cyan/20 flex items-center justify-center">
+                                    <i data-lucide="video" class="w-5 h-5 text-ima-cyan"></i>
+                                </div>
+                                <span class="font-medium">Video Pro</span>
+                            </div>
+                            <p class="text-sm text-gray-400">专业视频剪辑与特效</p>
+                            <button class="mt-3 text-sm text-ima-cyan hover:underline">一键安装 →</button>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-4">描述需求</h3>
-                        <p class="text-gray-400 leading-relaxed">
-                            用自然语言描述你想要的创作。AI 会自动理解并选择最佳方案。
-                        </p>
+                        
+                        <div class="skill-card">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-lg bg-ima-purple/20 flex items-center justify-center">
+                                    <i data-lucide="image" class="w-5 h-5 text-ima-purple"></i>
+                                </div>
+                                <span class="font-medium">Image Master</span>
+                            </div>
+                            <p class="text-sm text-gray-400">高级图像生成与编辑</p>
+                            <button class="mt-3 text-sm text-ima-purple hover:underline">一键安装 →</button>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-lg bg-ima-lobster/20 flex items-center justify-center">
+                                    <i data-lucide="music" class="w-5 h-5 text-ima-lobster"></i>
+                                </div>
+                                <span class="font-medium">Audio Studio</span>
+                            </div>
+                            <p class="text-sm text-gray-400">AI 音乐与音效生成</p>
+                            <button class="mt-3 text-sm text-ima-lobster hover:underline">一键安装 →</button>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Step 3 -->
-                <div class="relative reveal">
-                    <div class="text-8xl font-bold text-white/5 absolute -top-8 -left-4">03</div>
-                    <div class="relative pt-8">
-                        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center mb-6">
-                            <i data-lucide="download" class="w-8 h-8 text-white"></i>
+                <div id="tab-2" class="tab-content hidden">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <div class="bg-ima-card rounded-lg p-4 border border-ima-border">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium">我的工作流：电商广告模板</span>
+                                    <span class="text-xs text-gray-500">已保存</span>
+                                </div>
+                                <p class="text-sm text-gray-400">从脚本到成片的全自动化流程</p>
+                            </div>
+                            <button class="btn-special w-full">发布到社区</button>
                         </div>
-                        <h3 class="text-2xl font-semibold mb-4">获取成果</h3>
-                        <p class="text-gray-400 leading-relaxed">
-                            秒级生成，支持多种格式导出。不满意？一键重新生成或微调。
-                        </p>
+                        
+                        <div class="bg-ima-card rounded-lg p-4 border border-ima-border">
+                            <p class="text-sm text-gray-500 mb-3">社区反馈</p>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=10" class="w-8 h-8 rounded-full" alt="">
+                                    <div>
+                                        <p class="text-sm">太实用了！直接 fork 使用</p>
+                                        <p class="text-xs text-gray-500">@creator_01 · 2小时前</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-3">
+                                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=11" class="w-8 h-8 rounded-full" alt="">
+                                    <div>
+                                        <p class="text-sm">求合作，可以应用到我的项目中</p>
+                                        <p class="text-xs text-gray-500">@dev_mark · 5小时前</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- CTA Section -->
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    100+ <span class="gradient-text">Skills</span>.
+                </h2>
+                <p class="text-xl text-gray-400">Growing Every Day.</p>
+            </div>
+            
+            <!-- Category Tags -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
+                <span class="px-4 py-2 rounded-full bg-ima-cyan/10 text-ima-cyan text-sm border border-ima-cyan/20">视频创作</span>
+                <span class="px-4 py-2 rounded-full bg-ima-purple/10 text-ima-purple text-sm border border-ima-purple/20">图片生成</span>
+                <span class="px-4 py-2 rounded-full bg-ima-lobster/10 text-ima-lobster text-sm border border-ima-lobster/20">电商素材</span>
+                <span class="px-4 py-2 rounded-full bg-white/5 text-gray-400 text-sm border border-white/10">短剧制作</span>
+                <span class="px-4 py-2 rounded-full bg-white/5 text-gray-400 text-sm border border-white/10">音乐生成</span>
+                <span class="px-4 py-2 rounded-full bg-white/5 text-gray-400 text-sm border border-white/10">工作流自动化</span>
+            </div>
+            
+            <!-- Masonry Grid -->
+            <div class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4 reveal">
+                <div class="skill-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-ima-cyan/20 to-ima-purple/20 flex items-center justify-center">
+                            <i data-lucide="wand-2" class="w-5 h-5 text-ima-cyan"></i>
+                        </div>
+                        <span class="font-medium">AI Magic Edit</span>
+                    </div>
+                    <p class="text-sm text-gray-400">一键智能修图，自动识别并优化图像元素</p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-ima-lobster/20 to-ima-orange/20 flex items-center justify-center">
+                            <i data-lucide="shopping-bag" class="w-5 h-5 text-ima-lobster"></i>
+                        </div>
+                        <span class="font-medium">Product Shot Pro</span>
+                    </div>
+                    <p class="text-sm text-gray-400">电商产品图自动生成，支持多种场景和风格</p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-ima-purple/20 to-ima-cyan/20 flex items-center justify-center">
+                            <i data-lucide="clapperboard" class="w-5 h-5 text-ima-purple"></i>
+                        </div>
+                        <span class="font-medium">Short Drama Maker</span>
+                    </div>
+                    <p class="text-sm text-gray-400">短剧创作全流程，从剧本到成片一键生成</p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500/20 to-ima-cyan/20 flex items-center justify-center">
+                            <i data-lucide="music" class="w-5 h-5 text-green-400"></i>
+                        </div>
+                        <span class="font-medium">Suno Music Gen</span>
+                    </div>
+                    <p class="text-sm text-gray-400">AI 音乐生成，支持多种风格和情绪定制</p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-yellow-500/20 to-ima-orange/20 flex items-center justify-center">
+                            <i data-lucide="zap" class="w-5 h-5 text-yellow-400"></i>
+                        </div>
+                        <span class="font-medium">Auto Workflow</span>
+                    </div>
+                    <p class="text-sm text-gray-400">自动化工作流，批量处理重复性创作任务</p>
+                </div>
+                
+                <div class="skill-card">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-500/20 to-ima-lobster/20 flex items-center justify-center">
+                            <i data-lucide="palette" class="w-5 h-5 text-pink-400"></i>
+                        </div>
+                        <span class="font-medium">Style Transfer</span>
+                    </div>
+                    <p class="text-sm text-gray-400">风格迁移大师，一键应用任意艺术风格</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 reveal">
+                <button class="btn-secondary">
+                    探索全部 Skills →
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Community Section -->
+    <section id="community" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    Your Work Lives Here.
+                    <span class="gradient-text block mt-2">So Does Your Knowledge.</span>
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Works Gallery -->
+                <div class="reveal">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="image" class="w-6 h-6 text-ima-cyan"></i>
+                        <h3 class="text-xl font-semibold">作品库</h3>
+                        <span class="text-sm text-gray-500">你创作的成果</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="aspect-square rounded-xl bg-gradient-to-br from-ima-cyan/10 to-ima-purple/10 border border-ima-border flex items-center justify-center">
+                            <i data-lucide="video" class="w-8 h-8 text-ima-cyan"></i>
+                        </div>
+                        
+                        <div class="aspect-square rounded-xl bg-gradient-to-br from-ima-lobster/10 to-ima-orange/10 border border-ima-border flex items-center justify-center">
+                            <i data-lucide="image" class="w-8 h-8 text-ima-lobster"></i>
+                        </div>
+                        
+                        <div class="aspect-square rounded-xl bg-gradient-to-br from-ima-purple/10 to-ima-cyan/10 border border-ima-border flex items-center justify-center">
+                            <i data-lucide="music" class="w-8 h-8 text-ima-purple"></i>
+                        </div>
+                        
+                        <div class="aspect-square rounded-xl bg-gradient-to-br from-green-500/10 to-ima-cyan/10 border border-ima-border flex items-center justify-center">
+                            <i data-lucide="sparkles" class="w-8 h-8 text-green-400"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Knowledge Base -->
+                <div class="reveal">
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="book-open" class="w-6 h-6 text-ima-lobster"></i>
+                        <h3 class="text-xl font-semibold">经验库</h3>
+                        <span class="text-sm text-gray-500">你沉淀的方法</span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-ima-card rounded-xl p-4 border border-ima-border">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2 py-1 bg-ima-cyan/10 text-ima-cyan text-xs rounded">工作流</span>
+                            </div>
+                            <h4 class="font-medium mb-1">电商广告全流程自动化</h4>
+                            <p class="text-sm text-gray-400">从脚本到成片，10分钟搞定</p>
+                            <div class="flex items-center gap-2 mt-3">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=20" class="w-6 h-6 rounded-full" alt="">
+                                <span class="text-xs text-gray-500">@creator_alex · 234 次使用</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-ima-card rounded-xl p-4 border border-ima-border">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2 py-1 bg-ima-lobster/10 text-ima-lobster text-xs rounded">经验</span>
+                            </div>
+                            <h4 class="font-medium mb-1">短剧分镜设计指南</h4>
+                            <p class="text-sm text-gray-400">AI 辅助分镜，提升创作效率</p>
+                            <div class="flex items-center gap-2 mt-3">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=21" class="w-6 h-6 rounded-full" alt="">
+                                <span class="text-xs text-gray-500">@director_li · 189 次使用</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Social Proof Section -->
+    <section class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                    What <span class="gradient-text">Creators</span> Say
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Quote 1 -->
+                <div class="quote-card reveal">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=30" class="w-12 h-12 rounded-full" alt="">
+                        <div>
+                            <p class="font-medium">电商卖家</p>
+                            <p class="text-sm text-gray-500">@shop_owner_wang</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        「以前做一条广告片要外包3天，现在<span class="lobster-text">自己1小时搞定</span>」
+                    </p>
+                </div>
+                
+                <!-- Quote 2 -->
+                <div class="quote-card reveal">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=31" class="w-12 h-12 rounded-full" alt="">
+                        <div>
+                            <p class="font-medium">短剧创作者</p>
+                            <p class="text-sm text-gray-500">@drama_creator_chen</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        「画布工作流改变了我的分镜方式，<span class="lobster-text">效率提升不止10倍</span>」
+                    </p>
+                </div>
+                
+                <!-- Quote 3 -->
+                <div class="quote-card reveal">
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=32" class="w-12 h-12 rounded-full" alt="">
+                        <div>
+                            <p class="font-medium">独立开发者</p>
+                            <p class="text-sm text-gray-500">@indie_dev_zhang</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 leading-relaxed">
+                        「把 Skill 发到社区，<span class="lobster-text">第二天就有人来问合作了</span>」
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer CTA -->
     <section class="py-24 relative">
         <div class="max-w-5xl mx-auto px-6">
             <div class="relative rounded-3xl overflow-hidden p-12 md:p-16 text-center reveal">
                 <!-- Background -->
-                <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-purple-500/10 to-pink-500/10"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-ima-cyan/10 via-ima-purple/10 to-ima-lobster/10"></div>
                 <div class="absolute inset-0 backdrop-blur-3xl"></div>
                 <div class="absolute inset-0 border border-white/10 rounded-3xl"></div>
                 
                 <div class="relative z-10">
                     <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                        准备好开始了吗？
+                        Ready to Own Your
+                        <span class="gradient-text block mt-2">Creative OS?</span>
                     </h2>
+                    
                     <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-                        加入 2,000+ 创作者的行列，体验 AI 带来的创作革命。
+                        Start free. Install your first Skill in 60 seconds.
                     </p>
+                    
                     <div class="flex flex-wrap justify-center gap-4">
-                        <button class="btn-primary text-lg px-8 py-4">
-                            免费开始使用
+                        <button class="btn-special text-lg px-8 py-4">
+                            Get Started Free
                         </button>
+                        
                         <button class="btn-secondary text-lg px-8 py-4">
-                            联系销售团队
+                            Talk to Us
                         </button>
                     </div>
+                    
                     <p class="mt-6 text-sm text-gray-500">无需信用卡 · 免费额度每月重置 · 随时取消</p>
                 </div>
             </div>
@@ -578,39 +879,39 @@
             <div class="grid md:grid-cols-4 gap-8 mb-8">
                 <div class="md:col-span-2">
                     <a href="#" class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center">
-                            <i data-lucide="zap" class="w-5 h-5 text-black"></i>
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-ima-cyan to-ima-purple flex items-center justify-center">
+                            <i data-lucide="zap" class="w-5 h-5 text-white"></i>
                         </div>
-                        <span class="text-xl font-bold">iMaclaw</span>
+                        <span class="text-xl font-bold">IMA Studio</span>
                     </a>
                     <p class="text-gray-400 max-w-sm">
-                        IMA Studio 旗下 AI 智能助手产品，让每个人都能轻松使用 AI 进行创作。
+                        AI creation embedded in your workflow — not just a tab, but a living part of how you make things.
                     </p>
                 </div>
                 
                 <div>
                     <h4 class="font-semibold mb-4">产品</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">功能介绍</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">定价方案</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">API 文档</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">更新日志</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">iMaclaw</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Skills Store</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">定价</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="font-semibold mb-4">支持</h4>
+                    <h4 class="font-semibold mb-4">社区</h4>
                     <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">作品展示</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">经验分享</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">创作者计划</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">帮助中心</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">社区论坛</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">联系我们</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">状态页面</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-sm">© 2026 iMaclaw by IMA Studio. All rights reserved.</p>
+                <p class="text-gray-500 text-sm">© 2026 IMA Studio. All rights reserved.</p>
                 <div class="flex items-center gap-4">
                     <a href="#" class="text-gray-400 hover:text-white transition-colors">
                         <i data-lucide="twitter" class="w-5 h-5"></i>
@@ -649,80 +950,65 @@
         
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // Particle System
-        const canvas = document.getElementById('particles');
-        const ctx = canvas.getContext('2d');
-        
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-            
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
+        // Tab Switching
+        function switchTab(index) {
+            // Update tab buttons
+            document.querySelectorAll('.demo-tab').forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
                 }
-            }
-            
-            draw() {
-                ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        
-        const particles = Array.from({ length: 50 }, () => new Particle());
-        
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
             });
             
-            // Draw connections
-            particles.forEach((p1, i) => {
-                particles.slice(i + 1).forEach(p2 => {
-                    const dx = p1.x - p2.x;
-                    const dy = p1.y - p2.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
-                        ctx.strokeStyle = `rgba(0, 212, 255, ${0.1 * (1 - distance / 100)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(p1.x, p1.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                });
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach((content, i) => {
+                if (i === index) {
+                    content.classList.remove('hidden');
+                } else {
+                    content.classList.add('hidden');
+                }
             });
-            
-            requestAnimationFrame(animateParticles);
         }
         
-        animateParticles();
+        // Typing Animation
+        const typingElement = document.getElementById('hero-typing');
+        const texts = [
+            'Create a 15s product ad for my wireless earbuds...',
+            'Generate a storyboard for my short drama...',
+            'Make a music video with AI visuals...'
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeText() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+            
+            setTimeout(typeText, typeSpeed);
+        }
+        
+        // Start typing animation
+        setTimeout(typeText, 1000);
         
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
