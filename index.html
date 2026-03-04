@@ -254,12 +254,17 @@
         
         /* Scroll Reveal */
         .reveal {
-            opacity: 0;
-            transform: translateY(30px);
+            opacity: 1;
+            transform: translateY(0);
             transition: all 0.8s ease;
         }
         
-        .reveal.active {
+        .reveal.animate {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.animate.active {
             opacity: 1;
             transform: translateY(0);
         }
